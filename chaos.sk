@@ -1,0 +1,1044 @@
+# Chaos mode for Skript
+# Copyright (c) 2022 KiwifruitDev
+# This software is licensed under the MIT License.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+options:
+	max_effects: 81
+	effect_time: 60
+	chaos-function: startChaosEffect
+
+on script load:
+	delete {chaos::*}
+	set {chaos::seconds} to {@effect_time}
+	set {chaos::randomness} to "random" # "random" or "sequential"
+	set {chaos::events} to 0
+	set {chaos::sequence} to 1
+	set {chaos::previousevent} to 0
+	# List of effect names
+	add "&6Curse of the Anvil" to {chaos::effectnames::*} # 1
+	add "&6Curse of the Flight" to {chaos::effectnames::*} # 2
+	add "&6Curse of Slowness" to {chaos::effectnames::*} # 3
+	add "&6Curse of Nausea" to {chaos::effectnames::*} # 4
+	add "&6Blessing of Fishing Kit" to {chaos::effectnames::*} # 5
+	add "&6Curse of Clearing" to {chaos::effectnames::*} # 6
+	add "&6Curse of Forwarding" to {chaos::effectnames::*} # 7
+	add "&6Curse of Rotation" to {chaos::effectnames::*} # 8
+	add "&6Curse of the Nether" to {chaos::effectnames::*} # 9
+	add "&6Curse of the Void" to {chaos::effectnames::*} # 10
+	add "&6Curse of Anti-Jump" to {chaos::effectnames::*} # 11
+	add "&6Curse of Nightshift" to {chaos::effectnames::*} # 12
+	add "&6Curse of Flower Addiction" to {chaos::effectnames::*} # 13
+	add "&6Blessing of the Starter Kit" to {chaos::effectnames::*} # 14
+	add "&6Blessing of Wealth" to {chaos::effectnames::*} # 15
+	add "&6Blessing of Regeneration" to {chaos::effectnames::*} # 16
+	add "&6Blessing of Button Heaven" to {chaos::effectnames::*} # 17
+	add "&6Curse of the End" to {chaos::effectnames::*} # 18
+	add "&6Blessing of the Dog Lover" to {chaos::effectnames::*} # 19
+	add "&6Blessing of Becoming an Author" to {chaos::effectnames::*} # 20
+	add "&6Curse of the Fake Server Restart Warning" to {chaos::effectnames::*} # 21
+	add "&6Blessing of Jump Boost" to {chaos::effectnames::*} # 22
+	add "&6Blessing of the Totem of Undying" to {chaos::effectnames::*} # 23
+	add "&6Curse of Music Disc 11" to {chaos::effectnames::*} # 24
+	add "&6Curse of Johnny" to {chaos::effectnames::*} # 25
+	add "&6Curse of Brazil" to {chaos::effectnames::*} # 26
+	add "&6Curse of Thunder" to {chaos::effectnames::*} # 27
+	add "&6Blessing of the Morning" to {chaos::effectnames::*} # 28
+	add "&6Blessing of the Timber" to {chaos::effectnames::*} # 29
+	add "&6Blessing of the Wandering Trader" to {chaos::effectnames::*} # 30
+	add "&6Blessing of Light" to {chaos::effectnames::*} # 31
+	add "&6Curse of the Fake Player {1/7}" to {chaos::effectnames::*} # 32
+	add "&6Blessing of the Time Machine" to {chaos::effectnames::*} # 33
+	add "&6Blessing of the Bread" to {chaos::effectnames::*} # 34
+	add "&6Blessing of Anti-Poisoning" to {chaos::effectnames::*} # 35
+	add "&6Curse of &d&l&oMisery" to {chaos::effectnames::*} # 36
+	add "&6Blessing of the Fire Dash" to {chaos::effectnames::*} # 37
+	add "&6Blessing of the Farmer's Kit" to {chaos::effectnames::*} # 38
+	add "&6Curse of the Fake Player {2/7}" to {chaos::effectnames::*} # 39
+	add "&6Curse of the Fake Player {3/7}" to {chaos::effectnames::*} # 40
+	add "&6Curse of the Offhand" to {chaos::effectnames::*} # 41
+	add "&6Curse of the Fake Player {4/7}" to {chaos::effectnames::*} # 42
+	add "&6Curse of the Fake Player {5/7}" to {chaos::effectnames::*} # 43
+	add "&6Curse of the Spider" to {chaos::effectnames::*} # 44
+	add "&6Curse of the Piglin" to {chaos::effectnames::*} # 45
+	add "&6Blessing of the Horse" to {chaos::effectnames::*} # 46
+	add "&6Blessing of Nothing" to {chaos::effectnames::*} # 47
+	add "&6Curse of the Bees" to {chaos::effectnames::*} # 48
+	add "&6Blessing of the Mining Kit" to {chaos::effectnames::*} # 49
+	add "&6Blessing of the eh?" to {chaos::effectnames::*} # 50
+	add "&6Blessing of the Water" to {chaos::effectnames::*} # 51
+	add "&6Blessing of the Pufferfish" to {chaos::effectnames::*} # 52
+	add "&6Curse of the Trident" to {chaos::effectnames::*} # 53
+	add "&6Blessing of the Gold" to {chaos::effectnames::*} # 54
+	add "&6Blessing of the Armor Kit" to {chaos::effectnames::*} # 55
+	add "&6Curse of the Fake Player Death Message {1/2}" to {chaos::effectnames::*} # 56
+	add "&6Curse of the Fake Player Death Message {2/2}" to {chaos::effectnames::*} # 57
+	add "&6Blessing of Your Own Head" to {chaos::effectnames::*} # 58
+	add "&6Blessing of the Campfire" to {chaos::effectnames::*} # 59
+	add "&6Blessing of the Shield" to {chaos::effectnames::*} # 60
+	add "&6Curse of the Fake Death" to {chaos::effectnames::*} # 61
+	add "&6Curse of the Dropped Inventory" to {chaos::effectnames::*} # 62
+	add "&6Curse of the Fake Wither" to {chaos::effectnames::*} # 63
+	add "&6Blessing of the Loadout Theme" to {chaos::effectnames::*} # 64
+	add "&6Blessing of Elise" to {chaos::effectnames::*} # 65
+	add "&6Blessing of the Nautilus Shell" to {chaos::effectnames::*} # 66
+	add "&6Blessing of the Sea" to {chaos::effectnames::*} # 67
+	add "&6Blessing of the Chaos Pill" to {chaos::effectnames::*} # 68
+	add "&6Curse of the Chaos Potion" to {chaos::effectnames::*} # 69
+	add "&6Blessing of the Gravity Gun" to {chaos::effectnames::*} # 70
+	add "&6Curse of the Minecart" to {chaos::effectnames::*} # 71
+	add "&6Blessing of the Fireworks" to {chaos::effectnames::*} # 72
+	add "&6Curse of the Arrow Rain!" to {chaos::effectnames::*} # 73
+	add "&6Curse of the Chicken Rain" to {chaos::effectnames::*} # 74
+	add "&6Curse of &7DavyBackDead!" to {chaos::effectnames::*} # 75
+	add "&6Blessing of &31984" to {chaos::effectnames::*} # 76
+	add "&6Curse of the Fake Player {6/7}" to {chaos::effectnames::*} # 77
+	add "&6Curse of &c&oScary Ragtime" to {chaos::effectnames::*} # 78
+	add "&6Curse of the Fake Player {7/7}" to {chaos::effectnames::*} # 79
+	add "&6Blessing of the free beds" to {chaos::effectnames::*} # 80
+	add "&6Curse of the Ender Dragon death sound" to {chaos::effectnames::*} # 81
+
+function startChaosEffect(player: player, effect: int):
+	if {_player} is alive:
+		if {_effect} is 1:
+			# Anvil event
+			set {_startloc} to {_player}'s location
+			set {_endloc} to location at ({_startloc}'s x-coordinate), ({_startloc}'s y-coordinate - 1), ({_startloc}'s z-coordinate) in world {_startloc}'s world
+			set {_dir} to direction from {_startloc} to {_endloc}
+			set {_ray} to block raytrace from {_startloc} using {_dir}
+			set {_loc} to hit block of {_ray}
+			if "%{_loc}%" is not "<none>":
+				set {_block} to block 1 meter below {_loc}
+				set block at {_block} to anvil
+			else if {_startloc}'s y-coordinate <= 246:
+				set {_block} to block 10 meters above {_startloc}
+				set block at {_block} to anvil
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the anvil!" to loop-value
+		else if {_effect} is 2:
+			# Fling event
+			set {_startloc} to {_player}'s location
+			teleport {_player} to location at ({_startloc}'s x-coordinate), ({_startloc}'s y-coordinate + 1), ({_startloc}'s z-coordinate) in world {_player}'s world
+			thrust {_player} upwards at speed 10
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the flight!" to loop-value
+		else if {_effect} is 3:
+			# Slowness effect event
+			apply potion of slowness tier 3 to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of slowness!" to loop-value
+		else if {_effect} is 4:
+			# Nausea effect event
+			apply potion of Nausea tier 3 to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of nausea!" to loop-value
+		else if {_effect} is 5:
+			# Fishing kit (Blessing)
+			give {_player} 1 fishing rod
+			give {_player} 1 chest
+			give {_player} 1 bucket
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of fishing kit!" to loop-value
+		else if {_effect} is 6:
+			# Curse of clearing event
+			set slot (random number between 1 and 9) of {_player} to air
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of clearing!" to loop-value
+		else if {_effect} is 7:
+			# Curse of forwarding event
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of forwarding!" to loop-value
+			loop 10 times:
+				thrust {_player} forwards at speed 1
+				wait 0.25 seconds
+		else if {_effect} is 8:
+			# Curse of rotate event
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of rotation!" to loop-value
+			loop 40 times:
+				add 18 to yaw of {_player}'s direction
+				wait 1 tick
+		else if {_effect} is 9:
+			# Curse of the nether event
+			set {_startloc} to {_player}'s location
+			teleport {_player} to location 190, 66, 65 in world "TTS_nether"
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the nether!" to loop-value
+			wait 10 seconds
+			teleport {_player} to {_startloc}
+		else if {_effect} is 10:
+			# Curse of the void
+			set {_startloc} to {_player}'s location
+			set {_endloc} to location at ({_startloc}'s x-coordinate), -2, ({_startloc}'s z-coordinate) in world {_startloc}'s world
+			teleport {_player} to {_endloc}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the void!" to loop-value
+			damage {_player} by 0.5 hearts
+			wait 0.5 second
+			teleport {_player} to {_startloc}
+		else if {_effect} is 11:
+			# Anti-jump effect event
+			apply potion of jump boost -1 to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of anti-jump!" to loop-value
+		else if {_effect} is 12:
+			# Nightshift event
+			execute command "time set midnight"
+			spawn 3 zombie at location of {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of nightshift!" to loop-value
+		else if {_effect} is 13:
+			# Flower addiction event
+			loop 3 times:
+				give {_player} 64 poppy
+				give {_player} 64 sunflower
+				give {_player} 64 cornflower
+				give {_player} 64 wither rose
+				give {_player} 64 red mushroom
+				give {_player} 64 sunflower
+				give {_player} 64 red mushroom
+				give {_player} 64 wither rose
+				give {_player} 64 cornflower
+				give {_player} 64 poppy
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of flower addiction" to loop-value
+		else if {_effect} is 14:
+			# Starter kit (Blessing)
+			give {_player} 1 stone sword
+			give {_player} 1 stone pickaxe
+			give {_player} 1 stone shovel
+			give {_player} 1 stone axe of curse of vanishing
+			give {_player} 3 iron ingot of curse of vanishing
+			give {_player} 1 leather chestplate of curse of binding
+			give {_player} 1 leather leggings of curse of binding
+			give {_player} 1 leather boots of curse of binding
+			give {_player} 6 oak logs
+			give {_player} 1 crafting table
+			give {_player} 32 cobblestone
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the starter kit!" to loop-value
+		else if {_effect} is 15:
+			# The blessing of wealth (Blessing)
+			give {_player} 10 Emerald of curse of vanishing
+			give {_player} 5 diamond of curse of vanishing
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of wealth!" to loop-value
+		else if {_effect} is 16:
+			apply potion of regeneration tier 2 to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of regeneration!" to loop-value
+		else if {_effect} is 17:
+			# Button: Heaven (Blessing)
+			give {_player} 64 Button
+			give {_player} 64 Button
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of button: heaven!" to loop-value
+		else if {_effect} is 18:
+			# Curse of the end event
+			set {_startloc} to {_player}'s location
+			teleport {_player} to location 85, 50, 07 in world "TTS_the_end"
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the end!" to loop-value
+			wait 10 seconds
+			teleport {_player} to {_startloc}
+		else if {_effect} is 19:
+			# Dog lover event (Blessing)
+			loop 3 times:
+				spawn 1 dog at location of {_player}
+				set the tamer of the last spawned entity to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the dog lover!" to loop-value
+		else if {_effect} is 20:
+			# Your becoming an author event (Blessing)
+			give {_player} 1 book and quill
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of becoming an author!" to loop-value
+		else if {_effect} is 21:
+			# Fake server restart warning event
+			loop all players:
+				wait 3 seconds
+				send "&oRestarting server..." to loop-value
+				wait 10 seconds
+				send "&r&l%{_player}% &r&lhas recieved the curse of the fake server restart warning!" to loop-value
+		else if {_effect} is 22:
+			# Jump boost event (Blessing)
+			apply potion of jump boost 1 to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of jump boost!" to loop-value
+		else if {_effect} is 23:
+			# Fake totem of undying event
+			give {_player} 1 totem of undying of curse of vanishing with lore "It's fake, trust me!" with name "Fake Totem of Undying"
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the totem of undying!" to loop-value
+				wait 10 minutes
+				remove 1 totem of undying from {_player}
+		else if {_effect} is 24:
+			# The horrors of music disc 11 event
+			give {_player} 1 music disc 11
+			apply potion of blindness 3 to {_player} for 60 seconds
+			apply potion of wither effect 1 to {_player} for 60 seconds
+			send "&4&lI think &0you &4know where this is going..." to {_player}
+			play "MUSIC_DISC_11" to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of music disc 11!" to loop-value
+		else if {_effect} is 25:
+			#  Here's Johnny! event
+			damage {_player} by 3.0 hearts
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of jonny!" to loop-value
+		else if {_effect} is 26:
+			# Your goin' to brazil event
+			send "&c&lYour goin' to brazil!" to {_player}
+			wait 5 seconds
+			set {_startloc} to {_player}'s location
+			teleport {_player} to location 190, 120, 65 in world "TTS"
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of brazil!" to loop-value
+			wait 10 seconds
+			teleport {_player} to {_startloc}
+		else if {_effect} is 27:
+			# Thunder, feel the thunder. event
+			execute command "/weather thunder"
+			strike lightning at {_player} 
+			damage {_player} by 3.0 hearts
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of thunder!" to loop-value
+		else if {_effect} is 28:
+			# Dad, It's 6 o'clock in the morning, GET UP! event (Blessing)
+			execute command "time set 22950"
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the morning!" to loop-value
+		else if {_effect} is 29:
+			# I'm yelling timber! event (Blessing)
+			give {_player} 8 oak log
+			give {_player} 1 iron axe
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the timber!" to loop-value
+		else if {_effect} is 30:
+			# Wandering Trader event (Blessing)
+			spawn 1 Wandering Trader at location of {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the wandering trader!" to loop-value
+		else if {_effect} is 31:
+			# The blessing of light event (Blessing)
+			give {_player} 8 torch
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of light!" to loop-value
+		else if {_effect} is 32:
+			# Fake player join/death and leave message event {01/05}
+			wait 3 seconds
+			send "&ethe_mansonator joined the game" to {_player}
+			wait 5 ticks
+			send "&l&n&6&nWelcome the_mansonator to the &6&l&nAlternate-Dimension SMP!" to {_player}
+			wait 10 seconds
+			send "the_mansonator fell out of the world" to {_player}
+			wait 5 second
+			send "&ethe_mansonator left the game" to {_player}
+			wait 5 ticks
+			send "&l&n&6&nthe_mansonator has left the &6&l&nAlternate-Dimension SMP." to {_player}
+			wait 5 seconds
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the fake player" to {_player}
+		else if {_effect} is 33:
+			# Power of the time machine event (Blessing)
+			give {_player} 1 clock named "&6&lTime Controller"
+			send "&cNote that you can only use it once!" to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the time machine!" to loop-value
+		else if {_effect} is 34:
+			# I'M BREAD! event (Blessing)
+			give {_player} 8 bread
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the bread!" to loop-value
+		else if {_effect} is 35:
+			# Anti-Poisoning event {Milk} (Blessing)
+			give {_player} 1 milk
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of anti-poisoning!" to loop-value
+		else if {_effect} is 36:
+			# WitchCraft event {Special Events}
+			spawn 1 witch at location of {_player}
+			set name of spawned entity to "&d&l&oMisery"
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of &d&l&oMisery!" to loop-value
+		else if {_effect} is 37:
+			# Fire dash event (Blessing)
+			give {_player} 1 blaze powder named "&6&lFire Dash (Right Click)"
+			send "&cNote that your fire dash will be deleted after 10 minutes" to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the fire dash!" to loop-value
+				wait 10 minutes
+				remove 1 blaze powder named "&6&lFire Dash (Right Click)" from {_player}
+		else if {_effect} is 38:
+			# Farmers kit event (Blessing)
+			give {_player} 12 wheat
+			give {_player} 1 netherite hoe
+			give {_player} 12 carrots
+			give {_player} 12 potatoes
+			give {_player} 8 oak sapling
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the farmers kit!" to loop-value
+		else if {_effect} is 39:
+			# Fake player join/death and leave message event {02/05}
+			wait 3 seconds
+			send "&eFluffyInSpace joined the game" to {_player}
+			wait 5 ticks
+			send "&l&n&6&nWelcome FluffyInSpace to the &6&l&nAlternate-Dimension SMP!" to {_player}
+			wait 10 seconds
+			send "FluffyInSpace fell from a high place" to {_player}
+			wait 5 second
+			send "&eFluffyInSpace left the game" to {_player}
+			wait 5 ticks
+			send "&l&n&6&nFluffyInSpace has left the &6&l&nAlternate-Dimension SMP." to {_player}
+			wait 5 seconds
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the fake player" to {_player}
+		else if {_effect} is 40:
+			# Fake player join/death and leave message event {03/05}
+			wait 3 seconds
+			send "&eTheDestroyer2101 joined the game" to {_player}
+			wait 5 ticks
+			send "&l&n&6&nWelcome TheDestroyer2101 to the &6&l&nAlternate-Dimension SMP!" to {_player}
+			wait 10 seconds
+			send "TheDestroyer2101 tried to swim in lava" to {_player}
+			wait 5 second
+			send "&eTheDestroyer2101 left the game" to {_player}
+			wait 5 ticks
+			send "&l&n&6&nTheDestroyer2101 has left the &6&l&nAlternate-Dimension SMP." to {_player}
+			wait 5 seconds
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the fake player" to {_player}
+		else if {_effect} is 41:
+			# Remove an item from the players offhand
+			set slot 40 of {_player} to air
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the offhand" to loop-value
+		else if {_effect} is 42:
+			# Fake player join/death and leave message event {04/05}
+			wait 3 seconds
+			send "&eMrAndesite joined the game" to {_player}
+			wait 5 ticks
+			send "&l&n&6&nWelcome MrAndesite to the &6&l&nAlternate-Dimension SMP!" to {_player}
+			wait 10 seconds
+			send "MrAndesite suffocated in a wall" to {_player}
+			wait 5 second
+			send "&eMrAndesite left the game" to {_player}
+			wait 5 ticks
+			send "&l&n&6&nMrAndesite has left the &6&l&nAlternate-Dimension SMP." to {_player}
+			wait 5 seconds
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the fake player" to {_player}
+		else if {_effect} is 43:
+			# Fake player join/death and leave message event {05/05}
+			wait 3 seconds
+			send "&eZombiebomb joined the game" to {_player}
+			wait 5 ticks
+			send "&l&n&6&nWelcome Zombiebomb to the &6&l&nAlternate-Dimension SMP!" to {_player}
+			wait 10 seconds
+			send "Zombiebomb drowned" to {_player}
+			wait 5 second
+			send "&eZombiebomb left the game" to {_player}
+			wait 5 ticks
+			send "&l&n&6&nZombiebomb has left the &6&l&nAlternate-Dimension SMP." to {_player}
+			wait 5 seconds
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the fake player" to {_player}
+		else if {_effect} is 44:
+			# Spider event
+			spawn 3 spider at location of {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the spider!" to loop-value
+		else if {_effect} is 45:
+			# Got any gold my friend? event (Blessing/Curse)
+			spawn 2 piglin at location of {_player}
+			send "&6&lGot any gold my friend?" to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the piglin!" to loop-value
+		else if {_effect} is 46:
+			# I love horses event (Blessing)
+			spawn 1 horse at location of {_player}
+			give {_player} 1 saddle
+			give {_player} 1 leash
+			send "&6&lHope you like horses!" to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the horse!" to loop-value
+		else if {_effect} is 47:
+			# Nothing happens event (Blessing)
+			send "&0&lNothing happened..." to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of nothing!" to loop-value
+		else if {_effect} is 48:
+			# I HATE BEES event
+			spawn 5 bee at location of {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the bees!" to loop-value
+		else if {_effect} is 49:
+			# ShovelCraft event {Mining kit} (Blessing)
+			give {_player} 1 iron shovel of curse of vanishing and silk touch
+			give {_player} 1 stone pickaxe of curse of vanishing and silk touch
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the mining kit!" to loop-value
+		else if {_effect} is 50:
+			# Eh? what do you call this? event (Blessing)
+			give {_player} 8 rotten flesh
+			give {_player} 4 spider eye
+			give {_player} 1 Suspicious Stew
+			send "&c&lEh? What do you call this?" to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the eh?" to loop-value
+		else if {_effect} is 51:
+			# Water bucket event (Blessing)
+			give {_player} 1 water bucket
+			give {_player} 1 bottle of water
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the water!" to loop-value
+		else if {_effect} is 52:
+			# I dare you to eat this! event (Blessing)
+			give {_player} 1 pufferfish
+			send "&cI dare you to eat this!" to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the pufferfish" to loop-value
+		else if {_effect} is 53:
+			# Trident event
+			spawn trident 5 blocks above {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the trident!" to loop-value
+		else if {_effect} is 54:
+			# I got some gold! event (Blessing)
+			give {_player} 1 golden leggings
+			give {_player} 1 golden boots
+			give {_player} 12 gold ingot
+			send "&6&lI got some gold!" to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the gold!" to loop-value
+		else if {_effect} is 55:
+			# Armor kit event (Blessing)
+			give {_player} 1 chainmail helmet of curse of vanishing
+			give {_player} 1 chainmail chestplate of curse of vanishing and curse of binding
+			give {_player} 1 chainmail leggings of curse of vanishing and curse of binding
+			give {_player} 1 chainmail boots of curse of vanishing
+			give {_player} 1 armor stand
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the armor kit!" to loop-value
+		else if {_effect} is 56:
+			# Fake player death messages event {0/1}
+			send "%{_player}% was killed by MrAndesite" to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the fake player death message!" to loop-value
+		else if {_effect} is 57:
+			# Fake player death messages event {1/1}
+			send "%{_player}% was killed by the_mansonator" to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the fake player death message!" to loop-value
+		else if {_effect} is 58:
+			# Oh, you um you want your own head? What the! event (Blessing)
+			give {_player} 1 player head
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of your own head!" to loop-value
+		else if {_effect} is 59:
+			# The campfire event (Blessing)
+			give {_player} 1 campfire
+			give {_player} 3 lantern
+			give {_player} 6 sticks
+			give {_player} 1 flint and steel
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the campfire!" to loop-value
+		else if {_effect} is 60:
+			# I need a shield so badly, oh wait, what? event (Blessing)
+			give {_player} 1 shield
+			give {_player} 1 crossbow
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the shield!" to loop-value
+		else if {_effect} is 61:
+			# fake death
+			set {_health} to {_player}'s health
+			set {_item} to slot 40 of {_player}'s inventory
+			set slot 40 of {_player}'s inventory to totem of undying
+			wait 1 tick
+			kill {_player}
+			set slot 40 of {_player}'s inventory to {_item}
+			clear all the potion effects of {_player}
+			set {_player}'s health to {_health}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the fake death!" to loop-value
+		else if {_effect} is 62:
+			# inventory drop
+			make {_player} drop their inventory
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the dropped inventory!" to loop-value
+		else if {_effect} is 63:
+			# Fake wither event
+			spawn 1 wither at location of {_player}
+			set name of spawned entity to ""
+			wait 1 seconds
+			kill spawned entity
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the fake wither!" to loop-value
+		else if {_effect} is 64:
+			# Play loadout theme (Blessing)
+			play song file "plugins/FunkySk/sbloadout_new.nbs" to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the loadout theme!" to loop-value
+			if {chaos::enabled} is true:
+				set {chaos::enabled} to false
+				wait 7 seconds
+				set {chaos::enabled} to true
+		else if {_effect} is 65:
+			# Fur Elise event (Blessing)
+			play song file "plugins/FunkySk/Fur Elise.nbs" to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of Elise!" to loop-value
+			if {chaos::enabled} is true:
+				set {chaos::enabled} to false
+				wait 2 minutes
+				wait 29 seconds
+				set {chaos::enabled} to true
+		else if {_effect} is 66:
+			# Nautilus Shell event (Blessing)
+			give {_player} 4 nautilus shell
+			give {_player} 1 trident of curse of vanishing
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the nautilus shell!" to loop-value
+		else if {_effect} is 67:
+			# Blessing of the Sea event (Blessing)
+			apply potion of water breathing 2 to {_player} for 3 minutes
+			give {_player} enchanted book of Depth Strider
+			give {_player} 1 trident of curse of vanishing and impaling 2
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the sea!" to loop-value
+		else if {_effect} is 68:
+			# Chaos Pill event (Blessing)
+			give {_player} 1 water bottle named "&6Chaos Pill" with lore "&cThis will end all of the chaos!"
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the chaos pill!" to loop-value
+		else if {_effect} is 69:
+			# Chaos Potion event (Blessing/Curse)
+			give {_player} 1 potion of luck named "%random element out of {chaos::effectnames::*}%" with lore "&6&oChaos ensues!"
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the chaos potion!" to loop-value
+		else if {_effect} is 70:
+			# Gravity Gun event (Blessing) https://gist.github.com/MrRagtime/064a7a1877a8986b1d58c6f32ea1820e
+			give {_player} 1 golden horse armor named "&6&lGravity Gun"
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the gravity gun!" to loop-value
+		else if {_effect} is 71:
+			# Minecart event
+			spawn minecart at {_player}'s location
+			make {_player} ride last spawned minecart
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the minecart!" to loop-value
+			wait 1 minutes
+			delete last spawned minecart
+		else if {_effect} is 72:
+			# Firework event (Blessing)
+			spawn firework at {_player}'s location
+			wait 1 second
+			spawn firework at {_player}'s location
+			wait 5 ticks
+			spawn firework at {_player}'s location
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the firework!" to loop-value
+		else if {_effect} is 73:
+			# Arror Rain effect
+			summon an arrow 6 blocks above {_player}
+			wait 1.5 seconds
+			summon an arrow 6 blocks above {_player}
+			wait 1.5 second
+			summon an arrow 6 blocks above {_player}
+			loop 15 times:
+				wait 0.5 seconds
+				summon an arrow 6 blocks above {_player}
+			loop 25 times:
+				wait 0.2 seconds
+				summon an arrow 6 blocks above {_player}
+			loop 10 times:
+				wait 0.1 seconds
+				summon an arrow 6 blocks above {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the arrow rain!" to loop-value
+		else if {_effect} is 74:
+			# Chicken Rain effect
+			loop 15 times:
+				wait 0.1 ticks
+				summon chicken 5 blocks above {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the chicken rain!" to loop-value
+		else if {_effect} is 75:
+			# DavyBackDead event
+			spawn 1 zombie villager at location of {_player}
+			set name of spawned entity to "&7&lDavyBackDead"
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of DavyBackDead!" to loop-value
+		else if {_effect} is 76:
+			# 1984 by George Orwell (Blessing)
+			set {_book} to written book
+			set {_title} to "&41984"
+			set {_author} to "George Orwell"
+			set {_contents} to "&4&oLiterally 1984."
+			add "{title:""%{_title}%"",author:""%{_author}%"",pages:[""%{_contents}%""]}" to nbt of {_book}
+			open book {_book} to {_player}
+			give {_book} to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of 1984!" to loop-value
+		else if {_effect} is 77:
+			# Fake player join message # CDR42 { Player that joined on (5/5/2022) }
+			wait 3 seconds
+			send "&eCDR42 joined the game" to {_player}
+			wait 5 ticks
+			send "&l&n&6&nWelcome CDR42 to the &6&l&nAlternate-Dimension SMP!" to {_player}
+			wait 10 seconds
+			send "CDR42 issued server command: /plugins" to {_player}
+			wait 5 second
+			send "&eCDR42 left the game" to {_player}
+			wait 5 ticks
+			send "&l&n&6&nCDR42 has left the &6&l&nAlternate-Dimension SMP." to {_player}
+			wait 5 seconds
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the fake player" to {_player}
+		else if {_effect} is 78:
+			# Ragtime is scary!
+			set {_book} to written book
+			set {_title} to "&4Ragtime is Scary!"
+			set {_author} to "&3MrRagtime"
+			set {_contents} to "&4&oRagtime dies omg lets go!"
+			add "{title:""%{_title}%"",author:""%{_author}%"",pages:[""%{_contents}%""]}" to nbt of {_book}
+			open book {_book} to {_player}
+			give {_book} to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of Scary Ragtime!" to loop-value
+		else if {_effect} is 79:
+			# Fake player join message # lolopotis { Player that joined on (5/5/2022) }
+			wait 3 seconds
+			send "&elolopotis joined the game" to {_player}
+			wait 5 ticks
+			send "&l&n&6&nWelcome lolopotis to the &6&l&nAlternate-Dimension SMP!" to {_player}
+			wait 10 seconds
+			send "lolopotis issued server command: /plugins" to {_player}
+			wait 5 second
+			send "&elolopotis left the game" to {_player}
+			wait 5 ticks
+			send "&l&n&6&nlolopotis has left the &6&l&nAlternate-Dimension SMP." to {_player}
+			wait 5 seconds
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the fake player" to {_player}
+		else if {_effect} is 80:
+			# Free beds to go event (Blessing)
+			give {_player} 3 white bed
+			apply potion of regeneration 1 to {_player} for 15 seconds
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the blessing of the free beds!" to loop-value
+		else if {_effect} is 81:
+			# Ender Dragon Death Sound Effect loop by -DavyBackDead
+			loop 10 times:
+				play "ENTITY_ENDER_DRAGON_DEATH" to {_player}
+				wait 3 seconds
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the Ender Dragon sound loop!" to loop-value
+
+every 1 second:
+	if online player count is more than 0: 
+		if {chaos::enabled} is true:
+			# Update scoreboard
+			loop all players:
+				delete loop-value's sidebar
+				set name of sidebar of loop-value to "&r&l&oChaos Mode"
+				if online player count <= 1:
+					set score "&r%online player count% &rplayer" in sidebar of loop-value to 1
+				else:
+					set score "&r%online player count% &rplayers" in sidebar of loop-value to 1
+				set score "&r{@max_effects} &reffects" in sidebar of loop-value to 2
+				set score "&r%{chaos::seconds}% &rseconds left" in sidebar of loop-value to 3
+			set {_chaosed} to false
+			set {_rand} to 0
+			if {chaos::manual} is set:
+				set {_rand} to {chaos::manual}
+			else:
+				set {_rand} to a random integer between 1 and {@max_effects}
+			set {_block} to false
+			# Countdown ended
+			if {chaos::seconds} <= 0:
+				set {chaos::seconds} to {@effect_time}
+				set {_players::*} to all players
+				set {_randominfluence} to a random integer between 2 and 8
+				add 1 to {chaos::events}
+				# Flip randomness depending on event count
+				if {chaos::events} is greater than or equal to {_randominfluence}:
+					set {chaos::events} to 0
+					set {chaos::sequence} to 1
+					if {chaos::randomness} is "random":
+						set {chaos::randomness} to "sequential"
+						broadcast "&cChaos mode is now in &6random &corder!"
+					else:
+						set {chaos::randomness} to "random"
+						broadcast "&cChaos mode is now in &6sequential &corder!"
+				# Grab a random or sequential player
+				set {_player} to null
+				if {chaos::randomness} is "random":
+					set {_player} to a random element of {_players::*}
+				else if {chaos::randomness} is "sequential":
+					if {chaos::sequence} is more than online player count:
+						set {chaos::sequence} to 1
+					set {_player} to {chaos::sequence}th element of {_players::*}
+				# Start effect
+				{@chaos-function}({_player}, {_rand})
+			set {chaos::seconds} to {chaos::seconds} - 1
+			# Clean up
+			if {_chaosed} is true:
+				set {chaos::previousevent} to {_rand}
+		else:
+			# Update scoreboard
+			loop all players:
+				delete loop-value's sidebar
+
+on lightning:
+	if {chaos::previousevent} is 27:
+		cancel event
+	
+on projectile hit:
+	if {chaos::previousevent} is 53:
+		if projectile is a trident:
+			strike lightning at projectile
+
+on falling block land:
+	if event-entity is a falling anvil:
+		if {chaos::previousevent} is 1:
+			wait 1 second
+			kill event-entity
+
+# Manual Chaos Mode
+command /chaosmanual <integer>:
+	permission: skript.chaos
+	aliases: /manualchaos
+	trigger:
+		if arg-1 <= 0:
+			delete {chaos::manual}
+			send "&cThe next chaos effect is now a &6random &ceffect!" to player
+		else if arg-1 > {@max_effects}:
+			delete {chaos::manual}
+			send "&cThe next chaos effect is now a &6random &ceffect!" to player
+		else:
+			set {chaos::manual} to arg-1
+			send "&aThe next chaos effect is now the %{chaos::effectnames::%arg-1%}%&a!" to player
+
+command /chaospotion [<integer>]:
+	permission: skript.chaos
+	trigger:
+		set {_arg} to arg-1
+		if {_arg} is not set:
+			set {_arg} to -1
+		set {_potion} to "&6Nothing"
+		if {_arg} <= 0:
+			set {_potion} to random element out of {chaos::effectnames::*}
+		else if {_arg} > {@max_effects}:
+			set {_potion} to random element out of {chaos::effectnames::*}
+		else:
+			set {_potion} to {chaos::effectnames::%{_arg}%}
+		send "&aYou have been given a &6%{_potion}% &apotion!" to player
+		give player a potion of luck named "%{_potion}%" with lore "&6&oChaos ensues!"
+
+command /chaos:
+	permission: skript.chaos
+	aliases: /cm
+	trigger:
+		if {chaos::enabled} is not set:
+			set {chaos::enabled} to true
+			send "&a&lChaos has been enabled!" to player
+		else:
+			delete {chaos::enabled}
+			send "&c&lChaos has been disabled!" to player
+
+# Chaos Pill event
+on consume of water bottle:
+	if name of item is "&6Chaos Pill":
+		if {chaos::enabled} is true:
+			set {chaos::enabled} to false
+			wait 8 minutes
+			set {chaos::enabled} to true
+			
+# Chaos potion event
+on consume of potion:
+	if {chaos::effectnames::*} contains name of item:
+		loop {chaos::effectnames::*}:
+			if name of item is loop-value:
+				broadcast "&r&l%player% &r&lhas drank the &6%name of item% &r&lpotion!"
+				startChaosEffect(event-player, loop-index parsed as integer)
+				stop loop
+
+# Gravity Gun for Skript
+# Copyright (c) 2022 KiwifruitDev
+# This software is licensed under the MIT License.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+options:
+	gravitygun: golden horse armor named "&6&lGravity Gun"
+	holddistance: 2
+	holdoffset: vector(0, 1, 0)
+
+on script load:
+	clear {gravitygun::*}
+
+command /gravgun:
+	permission: skript.grygun
+	aliases: /ggun
+	trigger:
+		give player {@gravitygun}
+
+on leftclick:
+	if player's held item is {@gravitygun}:
+		if {gravitygun::players::*} contains player's uuid:
+			loop {gravitygun::players::*}:
+				if loop-value is player's uuid:
+					if {gravitygun::entities::%loop-index%} is set:
+						set gravity of {gravitygun::entities::%loop-index%} to on
+						set no clip state of {gravitygun::entities::%loop-index%} to false
+						push {gravitygun::entities::%loop-index%} in player's direction with speed 1
+						remove player's uuid from {gravitygun::players::*}
+						delete {gravitygun::entities::%loop-index%}
+					stop loop
+		cancel event
+
+on rightclick:
+	if player's held item is {@gravitygun}:
+		if {gravitygun::players::*} contains player's uuid:
+			loop {gravitygun::players::*}:
+				if loop-value is player's uuid:
+					set gravity of {gravitygun::entities::%loop-index%} to on
+					set no clip state of {gravitygun::entities::%loop-index%} to false
+					remove player's uuid from {gravitygun::players::*}
+					delete {gravitygun::entities::%loop-index%}
+					stop loop
+		else if event-block is set:
+			spawn ("falling %type of event-block%" parsed as entitytype) at event-block
+			set gravity of last spawned entity to off
+			set no clip state of last spawned entity to true
+			add player's uuid to {gravitygun::players::*}
+			add last spawned entity to {gravitygun::entities::*}
+			set block at event-block's location to air
+		else if event-entity is set:
+			if event-entity is not falling block:
+				if event-entity is not a player:
+					set gravity of last spawned entity to off
+					set no clip state of event-entity to true
+					add player's uuid to {gravitygun::players::*}
+					add event-entity to {gravitygun::entities::*}
+		cancel event
+
+every 1 tick:
+	loop {gravitygun::players::*}:
+		set {_player} to loop-value parsed as player
+		if {_player} is set:
+			set {_loc} to location of {_player}
+			set {_dir} to vector from direction {_player}'s direction
+			set x of {_dir} to (x of {_dir} * {@holddistance}) + x of {@holdoffset}
+			set y of {_dir} to (y of {_dir} * {@holddistance}) + y of {@holdoffset}
+			set z of {_dir} to (z of {_dir} * {@holddistance}) + z of {@holdoffset}
+			set {_loc} to {_loc} ~ {_dir}
+			# We're setting the entity's velocity to "move" it towards the player's hold distance.
+			set {_curloc} to location of {gravitygun::entities::%loop-index%}
+			set {_vel} to vector from {_curloc} to {_loc}
+			set {gravitygun::entities::%loop-index%}'s velocity to {_vel}
+			if {gravitygun::entities::%loop-index%} is not falling block:
+				teleport {gravitygun::entities::%loop-index%} to {_loc}
+
+# Time Controller for Skript
+# Copyright (c) 2022 KiwifruitDev
+# This software is licensed under the MIT License.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+on right click with clock:
+	if name of item is "&6&lTime Controller":
+		#set {timecontroller::interval} to 12
+		open chest inventory with 1 row named "&6&lTime Controller &8&l(%{timecontroller::interval}%h)" to player
+		set {_inventory} to player's current inventory
+		set slot 1 of {_inventory} to clock named "&r&6&lDecrease Time" with lore "&r&6Control the time."
+		set slot 2 of {_inventory} to potion of water breathing named "&r&l&9Change Weather to clear" with lore "Change the weather to clear"
+		set slot 3 of {_inventory} to enchanted book named "&r&6&lGo Back in Time" with lore "&r&6Go back in time."
+		set slot 4 of {_inventory} to gold sword named "&r&l&fRegeneration" with lore "Gives you regeneration."
+		set slot 5 of {_inventory} to enchanted book named "&r&6&lGo Forward in Time" with lore "&r&6Go forward in time."
+		set slot 6 of {_inventory} to potion of water breathing named "&r&l&9Change Weather to thunder" with lore "Change the weather to thunder"
+		set slot 7 of {_inventory} to clock named "&r&6&lIncrease Time" with lore "&r&6Control the time."
+
+on inventory click:
+	if name of player's current inventory starts with "&6&lTime Controller":
+		if clicked slot is 1: # Decrease Time
+			remove 4 from {timecontroller::interval}
+			if {timecontroller::interval} < 1:
+				set {timecontroller::interval} to 1
+			send "Set to %{timecontroller::interval}%h!" to player
+			set name of player's current inventory to "&6&lTime Controller &8&l(%{timecontroller::interval}%h)"
+		else if clicked slot is 2: # Change the weather to clear
+			send "Changing the weather to clear..."
+			set weather to clear
+			remove 1 clock named "&6&lTime Controller" from player
+			close inventory of player
+		else if clicked slot is 6: # Change the weather to thunder
+			send "Changing the weather to thunder..."
+			set weather to thunder
+			remove 1 clock named "&6&lTime Controller" from player
+			close inventory of player
+		else if clicked slot is 4: # Give regeneration
+			send "Here ya go!"
+			apply potion of regeneration tier 2 to player
+			remove 1 clock named "&6&lTime Controller" from player
+			close inventory of player
+		else if clicked slot is 3: # Go Back in Time
+			send "Going back in time..." to player
+			set {_time} to (player's world).getTime()
+			set {_time} to {_time} - ({timecontroller::interval} * 1000)
+			(player's world).setTime({_time})
+			remove 1 clock named "&6&lTime Controller" from player
+			close inventory of player
+		else if clicked slot is 5: # Go Forward in Time
+			send "Going forward in time..." to player
+			set {_time} to (player's world).getTime()
+			set {_time} to {_time} + ({timecontroller::interval} * 1000)
+			(player's world).setTime({_time})
+			remove 1 clock named "&6&lTime Controller" from player
+			close inventory of player
+		else if clicked slot is 7: # Increase Time
+			add 4 to {timecontroller::interval}
+			if {timecontroller::interval} > 24:
+				set {timecontroller::interval} to 24
+			send "Set to %{timecontroller::interval}%h!" to player
+			set name of player's current inventory to "&6&lTime Controller &8&l(%{timecontroller::interval}%h)"
+		cancel event
+
+# The firedash code is not mine! # You can find it here: https://forums.skunity.com/threads/fire-trail-behind-player.4803/
+
+# Original code below: -by ShaneBee
+
+# on rightclick with blaze powder:
+  # name of player's tool is "&eFire Dash &7(Right Click)":
+		# loop 10 times:
+			# set {_block} to block 1 blocks backwards player
+			# set block at {_block} to fire
+			# wait 8 ticks
+			# set block at {_block} to air
+
+# My version of ShaneBee's code:
+
+on rightclick with blaze powder:
+	if name of player's tool is "&6&lFire Dash &c(Right Click)":
+		loop 10 times:
+			set {_block} to block 1 blocks backwards player
+			set block at {_block} to fire
+			wait 8 ticks
+			set block at {_block} to air
