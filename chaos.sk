@@ -10,8 +10,8 @@
 # SOFTWARE.
 
 options:
-	max_effects: 81
-	effect_time: 60
+	max_effects: 83
+	effect_time: 30
 	chaos-function: startChaosEffect
 
 on script load:
@@ -103,6 +103,8 @@ on script load:
 	add "&6Curse of the Fake Player {7/7}" to {chaos::effectnames::*} # 79
 	add "&6Blessing of the free beds" to {chaos::effectnames::*} # 80
 	add "&6Curse of the Ender Dragon death sound" to {chaos::effectnames::*} # 81
+	add "&6Curse of &4E" to {chaos::effectnames::*} # 82
+	add "&6Curse of the Skript Error" to {chaos::effectnames::*} # 83
 
 function startChaosEffect(player: player, effect: int):
 	if {_player} is alive:
@@ -110,9 +112,6 @@ function startChaosEffect(player: player, effect: int):
 			# Anvil event
 			set {_startloc} to {_player}'s location
 			set {_endloc} to location at ({_startloc}'s x-coordinate), ({_startloc}'s y-coordinate - 1), ({_startloc}'s z-coordinate) in world {_startloc}'s world
-			set {_dir} to direction from {_startloc} to {_endloc}
-			set {_ray} to block raytrace from {_startloc} using {_dir}
-			set {_loc} to hit block of {_ray}
 			if "%{_loc}%" is not "<none>":
 				set {_block} to block 1 meter below {_loc}
 				set block at {_block} to anvil
@@ -158,12 +157,10 @@ function startChaosEffect(player: player, effect: int):
 				thrust {_player} forwards at speed 1
 				wait 0.25 seconds
 		else if {_effect} is 8:
-			# Curse of rotate event
+			# Kick player event for no reason -lol
+			kick {_player} due to "&r&lYou have been kicked for no reason -LOL!"
 			loop all players:
-				send "&r&l%{_player}% &r&lhas recieved the curse of rotation!" to loop-value
-			loop 40 times:
-				add 18 to yaw of {_player}'s direction
-				wait 1 tick
+				send "&r&l%{_player}% &r&lhas recieved the curse of being kicked!" to loop-value
 		else if {_effect} is 9:
 			# Curse of the nether event
 			set {_startloc} to {_player}'s location
@@ -734,12 +731,53 @@ function startChaosEffect(player: player, effect: int):
 			loop all players:
 				send "&r&l%{_player}% &r&lhas recieved the blessing of the free beds!" to loop-value
 		else if {_effect} is 81:
-			# Ender Dragon Death Sound Effect loop by -DavyBackDead
+			# Ender Dragon Death Sound Effect loop
 			loop 10 times:
 				play "ENTITY_ENDER_DRAGON_DEATH" to {_player}
 				wait 3 seconds
 			loop all players:
 				send "&r&l%{_player}% &r&lhas recieved the curse of the Ender Dragon sound loop!" to loop-value
+		else if {_effect} is 82:
+			# E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E
+			loop 5 times:
+				wait 5 seconds
+				send "&6E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E" to {_player}
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of &4E" to {_player}
+		else if {_effect} is 83:
+			# Skript Error
+			wait 3 seconds
+			apply jump boost -1 to {_player} for 20 seconds
+			apply slowness 500 to {_player} for 20 seconds
+			apply mining fatigue 50 to {_player} for 20 seconds
+			wait 5 seconds
+			send "&4[20:37:06] [Server thread/INFO]: [Skript] Line 747: (chaos.sk)" to {_player}
+			wait 3 seconds
+			wait 1 tick
+			send "&4Something went horribly wrong with Skript." to {_player}
+			wait 1 second
+			send "&4This issue is NOT your fault! You probably can't fix it yourself, either." to {_player}
+			wait 1 second
+			send "&4It looks like you are using some plugin(s) that alter how Skript works (addons)." to {_player}
+			wait 1 second
+			send "&4Here is full list of them:" to {_player}
+			wait 1 second
+			send "&4skRayFall v1.9.28 (https://sk.rayfall.net/) skript-reflect v2.3 (https://github.com/TPGamesNL/skript-reflect) Vixio v2.0.9-pre4 (http://vixio.space) SkJade v1.4.2 (https://www.github.com/Ankoki-Dev/SkJade) SkBee v1.17.2 (https://github.com/ShaneBeee/SkBee) FunkySk v1.0.2 MCJukebox v2.6.8 skScraft v1.5 SkQuery v4.1.7 Skellett v2.0.7 (https://forums.skunity.com/resources/skellett.24/) DiscordSRV v1.25.1 (https://github.com/DiscordSRV/DiscordSRV)" to {_player}
+			wait 1 second
+			send "&4We could not identify which of those are specially related, so this might also be Skript issue." to {_player}
+			wait 1 second
+			send "&4You should try disabling those plugins one by one, trying to find which one causes it." to {_player}
+			wait 1 second
+			send "&4If the error doesn't disappear even after disabling all listed plugins, it is probably Skript issue." to {_player}
+			wait 1 second
+			send "&4In that case, you will be given instruction on how should you report it." to {_player}
+			wait 1 second
+			send "&4On the other hand, if the error disappears when disabling some plugin, report it to author of that plugin." to {_player}
+			wait 1 second
+			send "&4Only if the author tells you to do so, report it to Skript's issue tracker." to {_player}
+			wait 1 second
+			loop all players:
+				send "&r&l%{_player}% &r&lhas recieved the curse of the Skript Error!" to loop-value
 
 every 1 second:
 	if online player count is more than 0: 
@@ -870,88 +908,6 @@ on consume of potion:
 				startChaosEffect(event-player, loop-index parsed as integer)
 				stop loop
 
-# Gravity Gun for Skript
-# Copyright (c) 2022 KiwifruitDev
-# This software is licensed under the MIT License.
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
-options:
-	gravitygun: golden horse armor named "&6&lGravity Gun"
-	holddistance: 2
-	holdoffset: vector(0, 1, 0)
-
-on script load:
-	clear {gravitygun::*}
-
-command /gravgun:
-	permission: skript.grygun
-	aliases: /ggun
-	trigger:
-		give player {@gravitygun}
-
-on leftclick:
-	if player's held item is {@gravitygun}:
-		if {gravitygun::players::*} contains player's uuid:
-			loop {gravitygun::players::*}:
-				if loop-value is player's uuid:
-					if {gravitygun::entities::%loop-index%} is set:
-						set gravity of {gravitygun::entities::%loop-index%} to on
-						set no clip state of {gravitygun::entities::%loop-index%} to false
-						push {gravitygun::entities::%loop-index%} in player's direction with speed 1
-						remove player's uuid from {gravitygun::players::*}
-						delete {gravitygun::entities::%loop-index%}
-					stop loop
-		cancel event
-
-on rightclick:
-	if player's held item is {@gravitygun}:
-		if {gravitygun::players::*} contains player's uuid:
-			loop {gravitygun::players::*}:
-				if loop-value is player's uuid:
-					set gravity of {gravitygun::entities::%loop-index%} to on
-					set no clip state of {gravitygun::entities::%loop-index%} to false
-					remove player's uuid from {gravitygun::players::*}
-					delete {gravitygun::entities::%loop-index%}
-					stop loop
-		else if event-block is set:
-			spawn ("falling %type of event-block%" parsed as entitytype) at event-block
-			set gravity of last spawned entity to off
-			set no clip state of last spawned entity to true
-			add player's uuid to {gravitygun::players::*}
-			add last spawned entity to {gravitygun::entities::*}
-			set block at event-block's location to air
-		else if event-entity is set:
-			if event-entity is not falling block:
-				if event-entity is not a player:
-					set gravity of last spawned entity to off
-					set no clip state of event-entity to true
-					add player's uuid to {gravitygun::players::*}
-					add event-entity to {gravitygun::entities::*}
-		cancel event
-
-every 1 tick:
-	loop {gravitygun::players::*}:
-		set {_player} to loop-value parsed as player
-		if {_player} is set:
-			set {_loc} to location of {_player}
-			set {_dir} to vector from direction {_player}'s direction
-			set x of {_dir} to (x of {_dir} * {@holddistance}) + x of {@holdoffset}
-			set y of {_dir} to (y of {_dir} * {@holddistance}) + y of {@holdoffset}
-			set z of {_dir} to (z of {_dir} * {@holddistance}) + z of {@holdoffset}
-			set {_loc} to {_loc} ~ {_dir}
-			# We're setting the entity's velocity to "move" it towards the player's hold distance.
-			set {_curloc} to location of {gravitygun::entities::%loop-index%}
-			set {_vel} to vector from {_curloc} to {_loc}
-			set {gravitygun::entities::%loop-index%}'s velocity to {_vel}
-			if {gravitygun::entities::%loop-index%} is not falling block:
-				teleport {gravitygun::entities::%loop-index%} to {_loc}
-
 # Time Controller for Skript
 # Copyright (c) 2022 KiwifruitDev
 # This software is licensed under the MIT License.
@@ -1020,25 +976,3 @@ on inventory click:
 			send "Set to %{timecontroller::interval}%h!" to player
 			set name of player's current inventory to "&6&lTime Controller &8&l(%{timecontroller::interval}%h)"
 		cancel event
-
-# The firedash code is not mine! # You can find it here: https://forums.skunity.com/threads/fire-trail-behind-player.4803/
-
-# Original code below: -by ShaneBee
-
-# on rightclick with blaze powder:
-  # name of player's tool is "&eFire Dash &7(Right Click)":
-		# loop 10 times:
-			# set {_block} to block 1 blocks backwards player
-			# set block at {_block} to fire
-			# wait 8 ticks
-			# set block at {_block} to air
-
-# My version of ShaneBee's code:
-
-on rightclick with blaze powder:
-	if name of player's tool is "&6&lFire Dash &c(Right Click)":
-		loop 10 times:
-			set {_block} to block 1 blocks backwards player
-			set block at {_block} to fire
-			wait 8 ticks
-			set block at {_block} to air
